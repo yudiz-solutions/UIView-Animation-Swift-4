@@ -20,7 +20,7 @@ enum AnimationDirectionType: Int {
         switch self {
         case .top, .bottom:
             return true
-        default:
+        case .left, .right:
             return false
         }
     }
@@ -29,14 +29,14 @@ enum AnimationDirectionType: Int {
         switch self {
         case .top, .left:
             return -1
-        default:
+        case .right, .bottom:
             return 1
         }
     }
     
     //Random direction.
-    static func random() -> AnimationDirection {
+    static func random() -> AnimationDirectionType {
         let rawValue = Int(arc4random_uniform(4))
-        return AnimationDirection(rawValue: rawValue)!
+        return AnimationDirectionType(rawValue: rawValue)!
     }
 }

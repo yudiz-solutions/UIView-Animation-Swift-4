@@ -8,56 +8,14 @@
 
 import UIKit
 
-//Screen Related
-let _screenSize = UIScreen.main.bounds.size
-let _screenFrame = UIScreen.main.bounds
-
-//Ratio
-var _heightRatio : CGFloat = {
-    switch UIDevice.current.userInterfaceIdiom {
-    case .pad:
-        return _screenSize.height/768
-    default:
-        return _screenSize.height/667
-    }
-}()
-var _widthRatio : CGFloat = {
-    switch UIDevice.current.userInterfaceIdiom {
-    case .pad:
-        return _screenSize.width/1024
-    default:
-        return _screenSize.width/375
-    }
-}()
-
-// ------------------------------------------------------------------------------------------------------------------------------- //
-
-//MARK:- CollectionViewCell
-class CollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var imgV: UIImageView!
-}
-
-//MARK:- TableViewCell
-class TableViewCell: UITableViewCell {
-    @IBOutlet weak var imgV: UIImageView!
-    @IBOutlet weak var lbl: UILabel!
-}
-
-//MARK:- ViewController
-class ViewController: UIViewController {
-    
-    //IBOutlet
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var tableView: UITableView!
+//MARK:- AllViewController
+class AllViewController: ParentVC {
     
     //BarButton
     @IBOutlet weak var btnAllView: UIBarButtonItem!
     @IBOutlet weak var btnCollectionView: UIBarButtonItem!
     @IBOutlet weak var btnTableView: UIBarButtonItem!
-    @IBOutlet weak var btnReset: UIBarButtonItem!
     
-    //Variable Declaration
-    var arrImages: [String] = ["0", "1", "2", "3", "4", "5", "6", "7", "0", "1", "2", "3", "4", "5", "6", "7", "0", "1", "2", "3", "4", "5", "6", "7", "0", "1", "2", "3", "4", "5", "6", "7", "0", "1", "2", "3", "4", "5", "6", "7", "0", "1", "2", "3", "4", "5", "6", "7", "0", "1", "2", "3", "4", "5", "6", "7", "0", "1", "2", "3", "4", "5", "6", "7"]
     
     //View LifeCycle
     override func viewDidLoad() {
@@ -67,7 +25,7 @@ class ViewController: UIViewController {
 }
 
 //MARK:- UI Related
-extension ViewController {
+extension AllViewController {
     func prepareUI() {
         removeAnimation()
     }
@@ -78,7 +36,7 @@ extension ViewController {
 }
 
 //MARK:- UIButton Actions
-extension ViewController {
+extension AllViewController {
     
     @IBAction func tapBtnAllView(_ sender: UIBarButtonItem) {
         view.animationRandom()
@@ -90,16 +48,12 @@ extension ViewController {
     
     @IBAction func tapBtnTableView(_ sender: UIBarButtonItem) {
         let offset = AnimationType.from(direction: .bottom, offSet: 30.0)
-        view.animateAll(withType: [offset])
-    }
-    
-    @IBAction func tapBtnReset(_ sender: UIBarButtonItem) {
-        view.restoreToIdentity()
+        tableView.animateAll(withType: [offset])
     }
 }
 
 //MARK:- UITableView Delegate and DataSource
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension AllViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrImages.count
@@ -122,7 +76,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 //MARK:- UICollectionView Delegate, FlowDelegate and DataSource
-extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension AllViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return arrImages.count
